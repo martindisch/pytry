@@ -3,10 +3,18 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+# Read my mail address and the smtp server from untracked credentials storage.
+# We wouldn't want this on Github now, would we?
+f = open("creds.txt")
+lines = f.readlines()
+f.close
+address = lines[0].strip()
+server = lines[1].strip()
+
 # me == my email address
 # you == recipient's email address
-me = "sender@example.org"
-you = "recipient@example.org"
+me = "mailer@service.org"
+you = address
 
 # Create message container - the correct MIME type is multipart/alternative.
 msg = MIMEMultipart('alternative')
@@ -39,7 +47,7 @@ msg.attach(part1)
 msg.attach(part2)
 
 # Send the message via local SMTP server.
-s = smtplib.SMTP('localhost')
+s = smtplib.SMTP(server)
 # sendmail function takes 3 arguments: sender's address, recipient's address
 # and message to send - here it is sent as one string.
 s.sendmail(me, you, msg.as_string())
