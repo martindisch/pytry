@@ -1,7 +1,7 @@
 import random
 import string
 
-script = open('Hamlet.txt', 'r')
+script = open('small.txt', 'r')
 text = script.read()
 script.close()
 
