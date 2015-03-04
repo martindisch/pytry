@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 '''
     Simple socket server using threads
 '''
@@ -35,7 +38,7 @@ def clientthread(conn):
          
         #Receiving from client
         data = conn.recv(1024)
-        reply = 'OK...' + data
+        reply = 'Ümläuté ähneln sich: ' + data
         if not data: 
             break
      
