@@ -29,11 +29,11 @@ s.listen(10)
 print 'Socket now listening'
  
 #Function for handling connections. This will be used to create threads
-def clientthread(conn):
+def clientthread(conn, addr):
     #Sending message to connected client
     conn.send('Welcome to the server. Type something and hit enter\n') #send only takes string
      
-    #infinite loop so that function do not terminate and thread do not end.
+    #infinite loop so that function does not terminate and thread does not end.
     while True:
          
         #Receiving from client
@@ -46,6 +46,7 @@ def clientthread(conn):
      
     #came out of loop
     conn.close()
+    print 'Lost connection with ' + str(addr[0]) + ':' + str(addr[1])
  
 #now keep talking with the client
 while 1:
@@ -54,6 +55,6 @@ while 1:
     print 'Connected with ' + addr[0] + ':' + str(addr[1])
      
     #start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function.
-    start_new_thread(clientthread ,(conn,))
+    start_new_thread(clientthread ,(conn, addr))
  
 s.close()
