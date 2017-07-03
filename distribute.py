@@ -37,13 +37,19 @@ def distribute(items, average):
 
     return daylist
 
-def show_list(daylist):
-    for i, day in enumerate(daylist):
-        print "Day", i + 1, ":",
-        for item in day: print item,
-        print
+def show_list(daylist, average):
+    cgreen, cred, cend = '\033[92m', '\033[91m', '\033[0m'
+    s_daylist = [[str(d) for d in day] for day in daylist]
+    s = "Day {0}: {1}"
+    lines = [s.format(i + 1, " ".join(day)) for i, day in enumerate(s_daylist)]
+    maxlen = max([len(line) for line in lines])
+    for i, line in enumerate(lines):
+        color = cgreen if sum(daylist[i]) - average >= 0 else cred
+        diff = str(sum(daylist[i]) - average)
+        lines[i] += color + diff.rjust(8 + maxlen - len(line)) + cend
+    print "\n".join(lines)
 
 if __name__ == "__main__":
     items, average = get_input()
     daylist = distribute(items, average)
-    show_list(daylist)
+    show_list(daylist, average)
