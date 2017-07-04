@@ -6,16 +6,16 @@ def get_input():
         "same length\nappears. Type \"done\" or press enter again to finish."
     )
     while True:
-        input = raw_input("> ")
-        if input == "done" or input == "": break
-        components = input.split(" ")
+        inp = input("> ")
+        if inp == "done" or inp == "": break
+        components = inp.split(" ")
         if len(components) == 1: components.append(1)
         items += [int(components[0]) for i in range(int(components[1]))]
 
-    print "\nIn how many days do you want to watch them?"
-    days = int(raw_input("> "))
-    average = sum(items) / days
-    print "\nOn average you can watch", average, "minutes per day."
+    print("\nIn how many days do you want to watch them?")
+    days = int(input("> "))
+    average = int(sum(items) / days)
+    print("\nOn average you can watch", average, "minutes per day.")
 
     return items, average
 
@@ -45,9 +45,9 @@ def show_list(daylist, average):
     maxlen = max([len(line) for line in lines])
     for i, line in enumerate(lines):
         color = cgreen if sum(daylist[i]) - average >= 0 else cred
-        diff = str(sum(daylist[i]) - average)
+        diff = str(int(sum(daylist[i]) - average))
         lines[i] += color + diff.rjust(8 + maxlen - len(line)) + cend
-    print "\n".join(lines)
+    print("\n".join(lines))
 
 if __name__ == "__main__":
     items, average = get_input()
