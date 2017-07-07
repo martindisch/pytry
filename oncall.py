@@ -82,11 +82,13 @@ end = """</body>
 """
 if not os.path.exists("html"):
     os.makedirs("html")
+lname = len(str(len(urls)))
 for i, url in enumerate(reversed(urls)):
     print("Downloading {0}/{1}: {2}".format(i + 1, len(urls), url))
     r = http.request("GET", "http://www.theregister.co.uk" + url)
     parser = StoryParser()
     parser.feed(r.data.decode("utf-8"))
     body = beginning + parser.get_body() + end
-    with codecs.open("html/{0}.html".format(i + 1), 'w', "utf-8-sig") as f:
+    filename = "html/{0}.html".format(str(i + 1).zfill(lname))
+    with codecs.open(filename, 'w', "utf-8-sig") as f:
         f.write(body)
