@@ -5,7 +5,7 @@ class NFA:
     """A nondeterministic finite automaton."""
 
     def __init__(self, transitions, initial, accepting):
-        """Instantiate a new DFA.
+        """Instantiate a new NFA.
 
         The states (and therefore the keys in the transition dictionaries)
         can be integers or strings, as long as this is done consistently.
